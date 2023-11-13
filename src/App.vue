@@ -5,6 +5,7 @@
     <div class="bg-warning">
       <div class="container p-4">
         <select name="cards" id="cards" class="form-select p-1">
+          <option value="">Archetipo</option>
           <FilterComponent v-for="item in myCards" :archetype="item.archetype" />
         </select>
       </div>

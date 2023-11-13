@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <h2 class="text-white">Attendi il caricamento delle carte...</h2>
-        <img src="https://www.staynerd.com/wp-content/uploads/yu-gi-oh-il-lato-oscuro-delle-dimensioni.jpg" alt="">
+    <div class="mybg">
+        <div class="center-content text-center">
+            <h2>Attendi il caricamento delle carte...</h2>
+            <img class="mt-5" src="img/yugioh.jpg" alt="">
+        </div>
     </div>
 </template>
 
@@ -12,13 +14,33 @@
 </script>
 
 <style lang="scss" scoped>
-img {
+.mybg {
     width: 100%;
+    height: 60vw;
+    background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaW1nMjFrNjM4YzVqZWFxYTRmenkyMmI5eTdkOWZwMjVwMWJ2bnB4cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GOQXMz9VPpOhi/giphy.gif');
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
-h2 {
+
+.center-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    
+    @keyframes spin {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 }
 </style>
