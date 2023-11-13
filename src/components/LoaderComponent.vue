@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="text-white">Attendi il caricamento delle carte</h2>
+        <h2 class="text-white">Attendi il caricamento delle carte...</h2>
         <img src="https://www.staynerd.com/wp-content/uploads/yu-gi-oh-il-lato-oscuro-delle-dimensioni.jpg" alt="">
     </div>
 </template>

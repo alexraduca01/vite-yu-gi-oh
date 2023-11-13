@@ -1,5 +1,5 @@
 <template>
-  <LoaderComponent v-if="myCards.length < 100" />
+  <LoaderComponent v-if="store.flag" />
   <div v-else>
     <HeaderComponent />
     <div class="bg-warning">
@@ -48,6 +48,7 @@ import {store} from './data/store';
       getCards(){
         axios.get(store.apiUrl).then((response) => {
           this.myCards = response.data.data;
+          store.flag = false;
         })
       },
     },
