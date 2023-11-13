@@ -1,47 +1,41 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="container">
+    <div class="row p-5">
+      <CardComponent v-for="card in myCards" :thumb="card.card_images[0].image_url" :title="card.name" :race="card.archetype"/>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    
+  </div>
+  
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+import CardComponent from './components/CardComponent.vue';
+import axios from 'axios';
+import {store} from './data/store';
+  export default {
+    components: {
+      CardComponent,
+    },
+    data(){
+      return {
+        store,
+        myCards: [],
+      }
+    },
+    methods: {
+      getCards(){
+        axios.get(store.apiUrl).then((response) => {
+          this.myCards = response.data.data;
+        })
+      }
+    },
+    created() {
+      this.getCards();
+    }
   }
+</script>
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+<style lang="scss" scoped>
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
