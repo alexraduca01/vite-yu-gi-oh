@@ -1,21 +1,29 @@
 <template>
-  <div class="container">
-    <div class="row p-5">
-      <CardComponent v-for="card in myCards" :thumb="card.card_images[0].image_url" :title="card.name" :race="card.archetype"/>
+  <HeaderComponent />
+  <div class="bg-warning p-5">
+    <div class="container bg-white p-5">
+      <div class="bg-primary p-2 row">
+        <h5 class="m-0">Found {{ myCards.length }} cards</h5>
+      </div>
+      <div class="row justify-content-between">
+        <CardComponent v-for="card in myCards" :thumb="card.card_images[0].image_url" :title="card.name" :race="card.archetype"/>
+      </div>
     </div>
-    
   </div>
+  
   
 </template>
 
 <script>
 
 import CardComponent from './components/CardComponent.vue';
+import HeaderComponent from './components/HeaderComponent.vue';
 import axios from 'axios';
 import {store} from './data/store';
   export default {
     components: {
       CardComponent,
+      HeaderComponent,
     },
     data(){
       return {

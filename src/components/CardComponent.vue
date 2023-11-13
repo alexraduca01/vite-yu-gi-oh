@@ -1,5 +1,5 @@
 <template>
-    <div class="card my-card border-0 my-3">
+    <div class="card my-card border-0 mb-4 p-0">
         <div>
             <img :src="thumb" :alt="title">
         </div>
@@ -29,7 +29,7 @@
 
 <style lang="scss" scoped>
 .my-card {
-    width: calc(100% / 5 - 20px);
+    width: calc(100% / 5 - 30px);
 }
 img {
     width: 100%;
