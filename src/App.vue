@@ -1,6 +1,11 @@
 <template>
   <HeaderComponent />
-  <div class="bg-warning p-5">
+  <div class="bg-warning">
+    <div class="container p-4">
+      <select name="cards" id="cards" class="form-select p-1">
+        <FilterComponent v-for="item in myCards" :archetype="item.archetype" />
+      </select>
+    </div>
     <div class="container bg-white p-5">
       <div class="bg-primary p-2 row">
         <h5 class="m-0">Found {{ myCards.length }} cards</h5>
@@ -18,12 +23,14 @@
 
 import CardComponent from './components/CardComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
+import FilterComponent from './components/FilterComponent.vue';
 import axios from 'axios';
 import {store} from './data/store';
   export default {
     components: {
       CardComponent,
       HeaderComponent,
+      FilterComponent,
     },
     data(){
       return {
@@ -36,14 +43,16 @@ import {store} from './data/store';
         axios.get(store.apiUrl).then((response) => {
           this.myCards = response.data.data;
         })
-      }
+      },
     },
     created() {
       this.getCards();
-    }
+    },
   }
 </script>
 
 <style lang="scss" scoped>
-
+select {
+  width: 6vw!important;
+}
 </style>
