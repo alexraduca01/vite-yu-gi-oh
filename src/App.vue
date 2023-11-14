@@ -1,8 +1,8 @@
 <template>
   <LoaderComponent v-if="store.flag" />
-  <div v-else>
+  <div v-else style="height: 100%;">
     <HeaderComponent />
-    <div class="bg-warning">
+    <div class="bg-warning p-4" style="height: 100%;">
       <div class="container p-4">
           <FilterComponent @filter-archetype="changeArchetype" />
       </div>
@@ -46,12 +46,6 @@ import {store} from './data/store';
       getCards(){
         axios.get(store.apiUrl, { params: this.params }).then((response) => {
           store.myCards = response.data.data;
-          store.flag = false;
-        });
-      },
-      getArchetypes(){
-        axios.get(store.archeUrl).then((response) => {
-          store.myArchetypes = response.data;
         });
       },
       changeArchetype(search){
@@ -67,9 +61,18 @@ import {store} from './data/store';
       },
     },
     created() {
-      this.getCards();
-      this.getArchetypes();
-    }
+      function getCards(){
+        return axios.get(store.apiUrl);
+      }
+      function getArchetypes(){
+        return axios.get(store.archeUrl);
+      }
+      Promise.all([getCards(), getArchetypes()]).then(function(response){
+        store.myCards = response[0].data.data;
+        store.myArchetypes = response[1].data;
+        store.flag = false;
+      })
+    },
   }
 </script>
 
