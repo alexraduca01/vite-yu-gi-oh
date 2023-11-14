@@ -4,17 +4,14 @@
     <HeaderComponent />
     <div class="bg-warning">
       <div class="container p-4">
-        <select name="cards" id="cards" class="form-select p-1">
-          <option value="">Archetipo</option>
-          <FilterComponent v-for="item in myCards" :archetype="item.archetype" />
-        </select>
+          <FilterComponent @filter-archetype="changeArchetype" />
       </div>
       <div class="container bg-white p-5">
         <div class="bg-dark p-2 row">
-          <h5 class="m-0 text-white">Found {{ myCards.length }} cards</h5>
+          <h5 class="m-0 text-white">Found {{ store.myCards.length }} cards</h5>
         </div>
         <div class="row justify-content-between">
-          <CardComponent v-for="card in myCards" :thumb="card.card_images[0].image_url" :title="card.name" :race="card.archetype"/>
+          <CardComponent v-for="card in store.myCards" :thumb="card.card_images[0].image_url" :title="card.name" :race="card.archetype"/>
         </div>
       </div>
     </div>
@@ -42,25 +39,40 @@ import {store} from './data/store';
     data(){
       return {
         store,
-        myCards: [],
+        params: null,
       }
     },
     methods: {
       getCards(){
-        axios.get(store.apiUrl).then((response) => {
-          this.myCards = response.data.data;
+        axios.get(store.apiUrl, { params: this.params }).then((response) => {
+          store.myCards = response.data.data;
           store.flag = false;
-        })
+        });
+      },
+      getArchetypes(){
+        axios.get(store.archeUrl).then((response) => {
+          store.myArchetypes = response.data;
+        });
+      },
+      changeArchetype(search){
+        console.log(search);
+        if(search){
+          this.params = {
+            archetype: search,
+          }
+        } else {
+          this.params = null
+        }
+        this.getCards();
       },
     },
     created() {
       this.getCards();
-    },
+      this.getArchetypes();
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-select {
-  width: 6vw!important;
-}
+
 </style>
