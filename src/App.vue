@@ -5,6 +5,7 @@
     <div class="bg-warning p-4" style="height: 100%;">
       <div class="container p-4">
           <FilterComponent @filter-archetype="changeArchetype" />
+          <FilterName @card-filter="filterByName"/>
       </div>
       <div class="container bg-white p-5">
         <div class="bg-dark p-2 row">
@@ -27,6 +28,7 @@ import CardComponent from './components/CardComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 import FilterComponent from './components/FilterComponent.vue';
 import LoaderComponent from './components/LoaderComponent.vue';
+import FilterName from './components/FilterName.vue';
 import axios from 'axios';
 import {store} from './data/store';
   export default {
@@ -35,6 +37,7 @@ import {store} from './data/store';
       HeaderComponent,
       FilterComponent,
       LoaderComponent,
+      FilterName,
     },
     data(){
       return {
@@ -59,6 +62,16 @@ import {store} from './data/store';
         }
         this.getCards();
       },
+      filterByName(value){
+        if(value){
+          this.params = {
+            fname: value,
+          }
+        } else {
+          this.params = null
+        }
+        this.getCards();
+      }
     },
     created() {
       function getCards(){
